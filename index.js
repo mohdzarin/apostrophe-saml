@@ -48,7 +48,10 @@ module.exports = {
       // Without this it looks for emailAddress, which is not available
       config.identifierFormat = null;
       // passport-saml uses entryPoint, not identityProviderUrl
-      config.entryPoint = config.identityProviderUrl;  
+      // [mohdzarin]: identityProviderUrl is not in the IdP metadata, so we're getting it from options
+      //config.entryPoint = config.identityProviderUrl;
+      config.entryPoint = options.entryPoint;
+
       config.callbackUrl = options.callbackUrl || (options.apos.options.baseUrl + '/auth/saml/login/callback');
       //Add our extra passportSamlOptions into our config object
       config = self.addPassportSamlOptions(config);
