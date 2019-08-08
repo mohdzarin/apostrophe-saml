@@ -48,11 +48,10 @@ module.exports = {
       // Without this it looks for emailAddress, which is not available
       config.identifierFormat = null;
       // passport-saml uses entryPoint, not identityProviderUrl
-      // [mohdzarin]: identityProviderUrl is not in the IdP metadata, so we're getting it from options
-      //config.entryPoint = config.identityProviderUrl;
-      config.entryPoint = options.entryPoint;
-
+      config.entryPoint = config.identityProviderUrl;
       config.callbackUrl = options.callbackUrl || (options.apos.options.baseUrl + '/auth/saml/login/callback');
+      // Obtaining the privateCert
+      config.privateCert = options.privateCert;
       //Add our extra passportSamlOptions into our config object
       config = self.addPassportSamlOptions(config);
 	  
@@ -67,7 +66,7 @@ module.exports = {
 
     self.generateMetadata = function() {
       var confFolder = _.last(self.__meta.chain).dirname;
-      var metadata = self.strategy.generateServiceProviderMetadata(fs.readFileSync(confFolder + '/our.cer', 'utf8'));
+      var metadata = self.strategy.generateServiceProviderMetadata(fs.readFileSync(confFolder + '/our.cer', 'utf8'), fs.readFileSync(confFolder + '/our.key', 'utf8'));
       fs.writeFileSync(self.apos.rootDir + '/public/' + require('path').basename(self.getIssuer()), metadata);
     };
 
