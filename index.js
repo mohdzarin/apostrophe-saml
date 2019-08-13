@@ -66,7 +66,7 @@ module.exports = {
 
     self.generateMetadata = function() {
       var confFolder = _.last(self.__meta.chain).dirname;
-      var metadata = self.strategy.generateServiceProviderMetadata(fs.readFileSync(confFolder + '/our.cer', 'utf8'), fs.readFileSync(confFolder + '/our.key', 'utf8'));
+      var metadata = self.strategy.generateServiceProviderMetadata(fs.readFileSync(confFolder + '/our.cer', 'utf8'), fs.readFileSync(confFolder + '/our.cer', 'utf8'));
       fs.writeFileSync(self.apos.rootDir + '/public/' + require('path').basename(self.getIssuer()), metadata);
     };
 
