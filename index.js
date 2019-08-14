@@ -50,8 +50,6 @@ module.exports = {
       // passport-saml uses entryPoint, not identityProviderUrl
       config.entryPoint = config.identityProviderUrl;
       config.callbackUrl = options.callbackUrl || (options.apos.options.baseUrl + '/auth/saml/login/callback');
-      // Obtaining the privateCert
-      config.privateCert = options.privateCert;
       //Add our extra passportSamlOptions into our config object
       config = self.addPassportSamlOptions(config);
 	  
